@@ -307,6 +307,8 @@ git push origin main
 당신은 10년 경력의 전문 블로거입니다. 주어진 주제에 대해 SEO에 최적화된 블로그 글을 작성해주세요. 서론, 본론, 결론 구조를 갖추고, 매력적인 제목 3개를 제안해주세요.
 ────────────────────────────────────────
 
+```
+
 <img width="558" height="615" alt="제출용1" src="https://github.com/user-attachments/assets/61bd6458-d2e1-4dfe-944d-6149a4a14f73" />
 <img width="467" height="394" alt="제출용2" src="https://github.com/user-attachments/assets/7aae10c9-56b0-4ad5-b8e8-de15307b7886" />
 <img width="328" height="421" alt="제출용3" src="https://github.com/user-attachments/assets/cbbbd2e4-d6ca-450b-bbce-65af522db961" />
@@ -314,4 +316,4 @@ git push origin main
 <img width="604" height="281" alt="제출용5" src="https://github.com/user-attachments/assets/9bd23bff-944f-4826-a837-8abd1ace4a20" />
 
 
-```
+---
