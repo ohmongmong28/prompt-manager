@@ -27,7 +27,52 @@ CATEGORIES = ["텍스트 생성", "이미지 생성", "영상 생성", "페르�
 
 
 # ==========================================
-# 2. 메인 메뉴 화면 출력 함수
+# 2. 프롬프트 추가 기능
+# ==========================================
+def add_prompt():
+    print("\n=== 프롬프트 추가 ===")
+    
+    # 제목 입력 (빈칸 방지)
+    while True:
+        title = input("제목: ").strip()
+        if title:
+            break
+        print("⚠️ 제목은 비어있을 수 없습니다. 다시 입력해주세요.")
+
+    # 내용 입력 (빈칸 방지)
+    while True:
+        content = input("내용: ").strip()
+        if content:
+            break
+        print("⚠️ 내용은 비어있을 수 없습니다. 다시 입력해주세요.")
+
+    # 카테고리 선택
+    print("\n카테고리 선택:")
+    for idx, category in enumerate(CATEGORIES, start=1):
+        print(f"{idx}) {category}")
+
+    while True:
+        choice = input("선택 (번호 입력): ").strip()
+        if choice.isdigit() and 1 <= int(choice) <= len(CATEGORIES):
+            selected_category = CATEGORIES[int(choice) - 1]
+            break
+        print("⚠️ 목록에 있는 번호를 입력해주세요.")
+
+    # 새로운 프롬프트 딕셔너리 생성 (즐겨찾기는 기본 False)
+    new_prompt = {
+        "title": title,
+        "content": content,
+        "category": selected_category,
+        "favorite": False
+    }
+
+    # 리스트에 추가
+    prompts.append(new_prompt)
+    print("\n🎉 프롬프트가 성공적으로 추가되었습니다!")
+
+
+# ==========================================
+# 3. 메인 메뉴 화면 출력 함수
 # ==========================================
 def show_menu():
     print("\n" + "=" * 25)
@@ -45,7 +90,7 @@ def show_menu():
 
 
 # ==========================================
-# 3. 프로그램 실행 루프 (진입점)
+# 4. 프로그램 실행 루프 (진입점)
 # ==========================================
 def main():
     while True:
@@ -56,7 +101,7 @@ def main():
             print("\n프로그램을 종료합니다. 이용해 주셔서 감사합니다!")
             break
         elif choice == "1":
-            print("\n[안내] 프롬프트 추가 기능은 다음 단계에서 구현됩니다.")
+            add_prompt()  # 추가 기능 호출!
         elif choice == "2":
             print("\n[안내] 프롬프트 목록 기능은 다음 단계에서 구현됩니다.")
         elif choice == "3":
