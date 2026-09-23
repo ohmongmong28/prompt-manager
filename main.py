@@ -83,7 +83,7 @@ def show_list():
 
 
 # ==========================================
-# 4. 카테고리별 조회 기능 (신규 추가!)
+# 4. 카테고리별 조회 기능
 # ==========================================
 def show_by_category():
     print("\n=== 카테고리별 조회 ===")
@@ -97,7 +97,6 @@ def show_by_category():
             break
         print("⚠️ 올바른 카테고리 번호를 입력해주세요.")
 
-    # 선택된 카테고리에 맞는 항목만 필터링
     filtered = [p for p in prompts if p["category"] == selected_cat]
 
     print(f"\n[{selected_cat}] 카테고리 프롬프트:")
@@ -113,7 +112,36 @@ def show_by_category():
 
 
 # ==========================================
-# 5. 메인 메뉴 화면 출력 함수
+# 5. 프롬프트 검색 기능 (신규 추가!)
+# ==========================================
+def search_prompt():
+    print("\n=== 프롬프트 검색 ===")
+    keyword = input("검색어: ").strip()
+
+    if not keyword:
+        print("⚠️ 검색어를 입력해주세요.")
+        return
+
+    # 제목이나 내용에 검색어가 포함된 항목 찾기
+    results = [
+        p for p in prompts
+        if keyword in p["title"] or keyword in p["content"]
+    ]
+
+    print("\n검색 결과:")
+    if not results:
+        print("검색 결과가 없습니다.")
+        return
+
+    for idx, p in enumerate(results, start=1):
+        star = " ⭐" if p["favorite"] else ""
+        print(f"{idx}. [{p['category']}] {p['title']}{star}")
+
+    print(f"\n{len(results)}개의 프롬프트를 찾았습니다.")
+
+
+# ==========================================
+# 6. 메인 메뉴 화면 출력 함수
 # ==========================================
 def show_menu():
     print("\n" + "=" * 25)
@@ -131,7 +159,7 @@ def show_menu():
 
 
 # ==========================================
-# 6. 프로그램 실행 루프 (진입점)
+# 7. 프로그램 실행 루프 (진입점)
 # ==========================================
 def main():
     while True:
@@ -146,9 +174,9 @@ def main():
         elif choice == "2":
             show_list()
         elif choice == "3":
-            show_by_category()  # 카테고리별 조회 연결!
+            show_by_category()
         elif choice == "4":
-            print("\n[안내] 프롬프트 검색 기능은 다음 단계에서 구현됩니다.")
+            search_prompt()  # 검색 기능 연결!
         elif choice == "5":
             print("\n[안내] 프롬프트 상세 보기 기능은 다음 단계에서 구현됩니다.")
         elif choice == "6":
