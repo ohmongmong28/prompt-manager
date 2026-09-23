@@ -67,7 +67,7 @@ def add_prompt():
 
 
 # ==========================================
-# 3. 프롬프트 목록 보기 기능 (신규 추가!)
+# 3. 프롬프트 목록 보기 기능
 # ==========================================
 def show_list():
     print("\n=== 프롬프트 목록 ===")
@@ -83,7 +83,37 @@ def show_list():
 
 
 # ==========================================
-# 4. 메인 메뉴 화면 출력 함수
+# 4. 카테고리별 조회 기능 (신규 추가!)
+# ==========================================
+def show_by_category():
+    print("\n=== 카테고리별 조회 ===")
+    for idx, cat in enumerate(CATEGORIES, start=1):
+        print(f"{idx}) {cat}")
+
+    while True:
+        choice = input("선택 (번호 입력): ").strip()
+        if choice.isdigit() and 1 <= int(choice) <= len(CATEGORIES):
+            selected_cat = CATEGORIES[int(choice) - 1]
+            break
+        print("⚠️ 올바른 카테고리 번호를 입력해주세요.")
+
+    # 선택된 카테고리에 맞는 항목만 필터링
+    filtered = [p for p in prompts if p["category"] == selected_cat]
+
+    print(f"\n[{selected_cat}] 카테고리 프롬프트:")
+    if not filtered:
+        print("해당 카테고리에 등록된 프롬프트가 없습니다.")
+        return
+
+    for idx, p in enumerate(filtered, start=1):
+        star = " ⭐" if p["favorite"] else ""
+        print(f"{idx}. {p['title']}{star}")
+
+    print(f"\n총 {len(filtered)}개의 프롬프트")
+
+
+# ==========================================
+# 5. 메인 메뉴 화면 출력 함수
 # ==========================================
 def show_menu():
     print("\n" + "=" * 25)
@@ -101,7 +131,7 @@ def show_menu():
 
 
 # ==========================================
-# 5. 프로그램 실행 루프 (진입점)
+# 6. 프로그램 실행 루프 (진입점)
 # ==========================================
 def main():
     while True:
@@ -114,9 +144,9 @@ def main():
         elif choice == "1":
             add_prompt()
         elif choice == "2":
-            show_list()  # 목록 조회 연결!
+            show_list()
         elif choice == "3":
-            print("\n[안내] 카테고리별 조회 기능은 다음 단계에서 구현됩니다.")
+            show_by_category()  # 카테고리별 조회 연결!
         elif choice == "4":
             print("\n[안내] 프롬프트 검색 기능은 다음 단계에서 구현됩니다.")
         elif choice == "5":
