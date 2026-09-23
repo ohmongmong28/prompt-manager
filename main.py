@@ -157,18 +157,18 @@ def show_detail():
     target = prompts[int(choice) - 1]
     star = "⭐" if target["favorite"] else "없음"
 
-    print("\n" + "─" * 35)
+    print("\n" + "─" * 40)
     print(f"제목: {target['title']}")
     print(f"카테고리: {target['category']}")
     print(f"즐겨찾기: {star}")
-    print("─" * 35)
+    print("─" * 40)
     print("내용:")
     print(target["content"])
-    print("─" * 35)
+    print("─" * 40)
 
 
 # ==========================================
-# 7. 즐겨찾기 토글(추가/해제) 기능 (신규 추가!)
+# 7. 즐겨찾기 토글 기능
 # ==========================================
 def manage_favorite():
     print("\n=== 즐겨찾기 관리 ===")
@@ -183,7 +183,6 @@ def manage_favorite():
         return
 
     target = prompts[int(choice) - 1]
-    # 즐겨찾기 상태 반전 (True -> False, False -> True)
     target["favorite"] = not target["favorite"]
 
     if target["favorite"]:
@@ -193,7 +192,7 @@ def manage_favorite():
 
 
 # ==========================================
-# 8. 즐겨찾기 목록 보기 기능 (신규 추가!)
+# 8. 즐겨찾기 목록 보기 기능
 # ==========================================
 def show_favorites():
     print("\n=== 즐겨찾기 목록 ===")
@@ -249,11 +248,15 @@ def main():
         elif choice == "5":
             show_detail()
         elif choice == "6":
-            manage_favorite()  # 즐겨찾기 관리 연결!
+            manage_favorite()
         elif choice == "7":
-            show_favorites()    # 즐겨찾기 목록 연결!
+            show_favorites()
         else:
             print("\n⚠️ 올바른 번호를 입력해주세요 (0~7).")
+            continue
+
+        # 각 작업 완료 후 사용자가 결과를 확인할 수 있도록 일시 정지
+        input("\n[Enter를 누르면 메뉴로 돌아갑니다]")
 
 
 if __name__ == "__main__":
