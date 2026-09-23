@@ -112,7 +112,7 @@ def show_by_category():
 
 
 # ==========================================
-# 5. 프롬프트 검색 기능 (신규 추가!)
+# 5. 프롬프트 검색 기능
 # ==========================================
 def search_prompt():
     print("\n=== 프롬프트 검색 ===")
@@ -122,7 +122,6 @@ def search_prompt():
         print("⚠️ 검색어를 입력해주세요.")
         return
 
-    # 제목이나 내용에 검색어가 포함된 항목 찾기
     results = [
         p for p in prompts
         if keyword in p["title"] or keyword in p["content"]
@@ -141,7 +140,35 @@ def search_prompt():
 
 
 # ==========================================
-# 6. 메인 메뉴 화면 출력 함수
+# 6. 프롬프트 상세 보기 기능 (신규 추가!)
+# ==========================================
+def show_detail():
+    print("\n=== 프롬프트 상세 보기 ===")
+    if not prompts:
+        print("등록된 프롬프트가 없습니다.")
+        return
+
+    choice = input("번호 입력: ").strip()
+
+    if not choice.isdigit() or not (1 <= int(choice) <= len(prompts)):
+        print("⚠️ 유효한 프롬프트 번호를 입력해주세요.")
+        return
+
+    target = prompts[int(choice) - 1]
+    star = "⭐" if target["favorite"] else "없음"
+
+    print("\n" + "─" * 35)
+    print(f"제목: {target['title']}")
+    print(f"카테고리: {target['category']}")
+    print(f"즐겨찾기: {star}")
+    print("─" * 35)
+    print("내용:")
+    print(target["content"])
+    print("─" * 35)
+
+
+# ==========================================
+# 7. 메인 메뉴 화면 출력 함수
 # ==========================================
 def show_menu():
     print("\n" + "=" * 25)
@@ -159,7 +186,7 @@ def show_menu():
 
 
 # ==========================================
-# 7. 프로그램 실행 루프 (진입점)
+# 8. 프로그램 실행 루프 (진입점)
 # ==========================================
 def main():
     while True:
@@ -176,9 +203,9 @@ def main():
         elif choice == "3":
             show_by_category()
         elif choice == "4":
-            search_prompt()  # 검색 기능 연결!
+            search_prompt()
         elif choice == "5":
-            print("\n[안내] 프롬프트 상세 보기 기능은 다음 단계에서 구현됩니다.")
+            show_detail()  # 상세 보기 연결!
         elif choice == "6":
             print("\n[안내] 즐겨찾기 관리 기능은 다음 단계에서 구현됩니다.")
         elif choice == "7":
