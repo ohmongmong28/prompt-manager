@@ -140,7 +140,7 @@ def search_prompt():
 
 
 # ==========================================
-# 6. 프롬프트 상세 보기 기능 (신규 추가!)
+# 6. 프롬프트 상세 보기 기능
 # ==========================================
 def show_detail():
     print("\n=== 프롬프트 상세 보기 ===")
@@ -168,7 +168,49 @@ def show_detail():
 
 
 # ==========================================
-# 7. 메인 메뉴 화면 출력 함수
+# 7. 즐겨찾기 토글(추가/해제) 기능 (신규 추가!)
+# ==========================================
+def manage_favorite():
+    print("\n=== 즐겨찾기 관리 ===")
+    if not prompts:
+        print("등록된 프롬프트가 없습니다.")
+        return
+
+    choice = input("프롬프트 번호 입력: ").strip()
+
+    if not choice.isdigit() or not (1 <= int(choice) <= len(prompts)):
+        print("⚠️ 유효한 프롬프트 번호를 입력해주세요.")
+        return
+
+    target = prompts[int(choice) - 1]
+    # 즐겨찾기 상태 반전 (True -> False, False -> True)
+    target["favorite"] = not target["favorite"]
+
+    if target["favorite"]:
+        print(f"'{target['title']}' 프롬프트를 즐겨찾기에 추가했습니다! ⭐")
+    else:
+        print(f"'{target['title']}' 프롬프트의 즐겨찾기를 해제했습니다.")
+
+
+# ==========================================
+# 8. 즐겨찾기 목록 보기 기능 (신규 추가!)
+# ==========================================
+def show_favorites():
+    print("\n=== 즐겨찾기 목록 ===")
+    favs = [p for p in prompts if p["favorite"]]
+
+    if not favs:
+        print("즐겨찾기로 등록된 프롬프트가 없습니다.")
+        return
+
+    for idx, p in enumerate(favs, start=1):
+        print(f"{idx}. [{p['category']}] {p['title']} ⭐")
+
+    print(f"\n총 {len(favs)}개의 즐겨찾기")
+
+
+# ==========================================
+# 9. 메인 메뉴 화면 출력 함수
 # ==========================================
 def show_menu():
     print("\n" + "=" * 25)
@@ -186,7 +228,7 @@ def show_menu():
 
 
 # ==========================================
-# 8. 프로그램 실행 루프 (진입점)
+# 10. 프로그램 실행 루프 (진입점)
 # ==========================================
 def main():
     while True:
@@ -205,11 +247,11 @@ def main():
         elif choice == "4":
             search_prompt()
         elif choice == "5":
-            show_detail()  # 상세 보기 연결!
+            show_detail()
         elif choice == "6":
-            print("\n[안내] 즐겨찾기 관리 기능은 다음 단계에서 구현됩니다.")
+            manage_favorite()  # 즐겨찾기 관리 연결!
         elif choice == "7":
-            print("\n[안내] 즐겨찾기 목록 기능은 다음 단계에서 구현됩니다.")
+            show_favorites()    # 즐겨찾기 목록 연결!
         else:
             print("\n⚠️ 올바른 번호를 입력해주세요 (0~7).")
 
